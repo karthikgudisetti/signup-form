@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>3D Neon Sign-Up Form</title>
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      padding: 0;
+      height: 100vh;
+      background: linear-gradient(135deg, #0f0f0f, #1a1a1a);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      color: #fff;
+    }
+
+    section {
+      background: rgba(30, 30, 30, 0.85);
+      backdrop-filter: blur(10px);
+      border-radius: 20px;
+      padding: 40px 30px;
+      width: 100%;
+      max-width: 420px;
+      box-shadow: 0 0 20px rgba(0, 255, 255, 0.15),
+                  0 0 50px rgba(0, 255, 255, 0.05);
+      animation: popUp 0.6s ease-in-out;
+    }
+
+    @keyframes popUp {
+      from {
+        opacity: 0;
+        transform: scale(0.95);
+      }
+      to {
+        opacity: 1;
+        transform: scale(1);
+      }
+    }
+
+    h1 {
+      text-align: center;
+      margin-bottom: 30px;
+      font-size: 28px;
+      color: #0ff;
+      text-shadow: 0 0 10px #0ff;
+    }
+
+    label {
+      font-weight: 500;
+      font-size: 14px;
+      margin-bottom: 6px;
+      display: block;
+    }
+
+    input[type="text"],
+    input[type="email"],
+    input[type="tel"],
+    input[type="password"] {
+      width: 100%;
+      padding: 12px;
+      margin-bottom: 20px;
+      border: 1px solid rgba(0, 255, 255, 0.2);
+      border-radius: 8px;
+      background-color: rgba(255, 255, 255, 0.05);
+      color: #fff;
+      font-size: 14px;
+      transition: all 0.3s ease;
+    }
+
+    input:focus {
+      outline: none;
+      background-color: rgba(255, 255, 255, 0.1);
+      border: 1px solid #0ff;
+      box-shadow: 0 0 10px #0ff;
+    }
+
+    input[type="submit"],
+    input[type="reset"] {
+      padding: 12px 20px;
+      margin: 10px 10px 0 0;
+      border: none;
+      border-radius: 10px;
+      background: linear-gradient(145deg, #00cfff, #007bff);
+      color: #fff;
+      font-weight: bold;
+      font-size: 15px;
+      cursor: pointer;
+      transition: 0.2s ease-in-out;
+      box-shadow: 0 5px 15px rgba(0, 255, 255, 0.2);
+    }
+
+    input[type="submit"]:hover,
+    input[type="reset"]:hover {
+      background: linear-gradient(145deg, #00aaff, #0056b3);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 20px rgba(0, 255, 255, 0.3);
+    }
+
+    input[type="submit"]:active,
+    input[type="reset"]:active {
+      transform: scale(0.97);
+    }
+
+    .error {
+      color: #ff4d4d;
+      font-size: 14px;
+      margin-top: -15px;
+      margin-bottom: 10px;
+    }
+
+    @media (max-width: 480px) {
+      section {
+        padding: 30px 20px;
+        width: 90%;
+      }
+    }
+  </style>
+</head>
+<body>
+  <section>
+    <h1>Sign Up</h1>
+    <form id="signupForm">
+      <label for="name">Name:</label>
+      <input type="text" id="name" placeholder="Enter your full name" required />
+
+      <label for="email">Email:</label>
+      <input type="email" id="email" placeholder="Enter your email" required />
+
+      <label for="phone">Phone:</label>
+      <input type="tel" id="phone" placeholder="Enter your phone number" required />
+
+      <label for="password">Password:</label>
+      <input type="password" id="password" placeholder="Enter your password" required />
+
+      <label for="cpassword">Confirm Password:</label>
+      <input type="password" id="cpassword" placeholder="Confirm your password" required />
+
+      <div class="error" id="errorMsg"></div>
+
+      <input type="submit" value="Submit" />
+      <input type="reset" value="Reset" />
+    </form>
+  </section>
+
+  <script>
+    document.getElementById("signupForm").addEventListener("submit", function(event) {
+      event.preventDefault();
+
+      const name = document.getElementById("name").value.trim();
+      const email = document.getElementById("email").value.trim();
+      const phone = document.getElementById("phone").value.trim();
+      const password = document.getElementById("password").value;
+      const cpassword = document.getElementById("cpassword").value;
+      const errorMsg = document.getElementById("errorMsg");
+
+      const emailRegex = /^[^@]+@[^@]+\.[^@]+$/;
+      const phoneRegex = /^[0-9]{10}$/;
+
+      if (!name || !email || !phone || !password || !cpassword) {
+        errorMsg.textContent = "Please fill in all fields.";
+        return;
+      }
+
+      if (!emailRegex.test(email)) {
+        errorMsg.textContent = "Please enter a valid email address.";
+        return;
+      }
+
+      if (!phoneRegex.test(phone)) {
+        errorMsg.textContent = "Please enter a valid 10-digit phone number.";
+        return;
+      }
+
+      if (password !== cpassword) {
+        errorMsg.textContent = "Passwords do not match.";
+        return;
+      }
+
+      errorMsg.textContent = "";
+      alert("Form submitted successfully!");
+    });
+  </script>
+</body>
+</html>
+
+
